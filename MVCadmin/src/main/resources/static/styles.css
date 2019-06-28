@@ -5,6 +5,7 @@ section{
 	border: 1px solid black;
 	border-radius: 10px;
 	padding-bottom: 3%;
+	text-align: center;
 	
 }
 
@@ -20,7 +21,5 @@ section{
 	
 }
 
-#options, #title{
-	text-align:  center;
-}
+
 

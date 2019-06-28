@@ -1,9 +1,12 @@
-package mongoManager;
-import org.springframework.data.annotation.Id; 
+package com.adminTool;
+
+
+import org.springframework.data.annotation.Id;
 
 public class Country {
 
-	
+	  @Id
+	  public String id;
 	  public String  country;
 	  public String  eelec;
 	  public String  esaved_PV;
@@ -63,6 +66,6 @@ public class Country {
 		  this.etree = etree;
 		  this.ehouse = ehouse;
 		  
-	  }
+}
 	
 }
