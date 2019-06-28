@@ -1,10 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<title>Database Administration Tool</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
 </head>
 <body>
-	<h1>Hello</h1>
+	<section>
+		<h1>Database data</h1>
+		<table >
+			<tr> 
+				<th>Country</th> 
+				<th>eelec</th>
+				<th>PV</th>
+				<th>Wind</th>
+				<th>Hydro</th>
+				<th>Heat</th>
+				<th>Fuel</th>
+				<th>egas</th>
+				<th>CH4</th>
+				<th>N2O</th>
+				<th>nvehicle Dry</th>
+				<th>exhaust Dry</th>
+				<th>nvehicle Liquid</th>
+				<th>exhaust Liquid</th>
+				<th>Wasted wood</th>
+				<th>Swdust</th>
+				<th>Methane</th>
+				<th>Tree</th>
+				<th>House</th>
+			</tr>
+			<tr th:each="country: ${countries}">
+				<td th:text="${country.country}"></td>
+				<td th:text="${country.eelec}"></td>
+				<td th:text="${country.esaved_PV}"></td>
+				<td th:text="${country.esaved_wind}"></td>
+				<td th:text="${country.esaved_hydro}"></td>
+				<td th:text="${country.eheat}"></td>
+				<td th:text="${country.efuel}"></td>
+				<td th:text="${country.egas}"></td>
+				<td th:text="${country.fCH4_CO2}"></td>
+				<td th:text="${country.fN2O_CO2}"></td>
+				<td th:text="${country.nvehicle_Dry}"></td>
+				<td th:text="${country.etransport_exhaust_Dry}"></td>
+				<td th:text="${country.nvehicle_Liquid}"></td>
+				<td th:text="${country.etransport_exhaust_Liquid}"></td>
+				<td th:text="${country.LHV_Demolitoion_Wood}"></td>
+				<td th:text="${country.LHV_Sawdust}"></td>
+				<td th:text="${country.LHV_Methane}"></td>
+				<td th:text="${country.etree}"></td>	
+				<td th:text="${country.ehouse}"></td>			
+			</tr>
+		</table>
+		<a href="/">Go back</a>
+	</section>
+			
 
 </body>
 </html>
