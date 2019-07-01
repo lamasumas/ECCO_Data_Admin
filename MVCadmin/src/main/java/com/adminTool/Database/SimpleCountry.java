@@ -1,4 +1,4 @@
-package com.adminTool;
+package com.adminTool.Database;
 
 public class SimpleCountry 
 {

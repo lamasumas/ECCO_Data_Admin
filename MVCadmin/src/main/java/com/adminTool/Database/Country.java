@@ -1,8 +1,10 @@
-package com.adminTool;
+package com.adminTool.Database;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Country {
 
 	  @Id

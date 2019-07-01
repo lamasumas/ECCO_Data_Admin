@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Database Administration Tool</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
 </head>
 <body>
-
+	
 
 	<section>
-		<h1>Edit the country:</h1>
-		<form action="#" th:action="@{/savingEditedChanges}" th:object="${countryToEdit}" method="post">
-			id: <input readonly th:field="*{id}">
-			Country: <input readonly th:field="*{country}">
+		<h1>Add a country:</h1>
+		<form action="#" th:action="@{/savingAddedChanges}" th:object="${countryToEdit}" method="post">
+			
+			Country: <input th:field="*{country}">
 			<br>
 			Eelec: <input th:field="*{eelec}" >
 			Esaved_PV: <input  th:field="*{esaved_PV}" >
@@ -43,6 +43,7 @@
 			<button type="submit">Save Changes</button>
 		</form>
 	</section>
-	
+
+
 </body>
 </html>
