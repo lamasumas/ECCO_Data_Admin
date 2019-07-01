@@ -12,6 +12,7 @@ import org.springframework.web.servlet.tags.EditorAwareTag;
 import com.adminTool.Database.Country;
 import com.adminTool.Database.CountryRepository;
 import com.adminTool.Database.SimpleCountry;
+import com.adminTool.errors.DuplicateCountryException;
 import com.adminTool.errors.NoCountryNameException;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class GeneralController {
+	
 	@Autowired
 	private Sanitizer sanitizer;
 	
@@ -72,21 +74,26 @@ public class GeneralController {
 	}
 
 	@RequestMapping("/add")
-	public String addingNewCountry( Model model)
+	public String addingNewCountry( Model model, boolean noCountryName, boolean duplicateCountry)
 	{
 		model.addAttribute("countryToEdit", new Country());
+		model.addAttribute("duplicate", new DuplicateCountryException(duplicateCountry));
+		model.addAttribute("noName", new NoCountryNameException(noCountryName)) ;
 		
 		return "add";
 	}
 	
 	@RequestMapping("/savingAddedChanges")
-	public String addingNewCountry(@ModelAttribute Country countryToEdit, Model model)
+	public String savingNewCountry(@ModelAttribute Country countryToEdit, Model model)
 	{
 		
 		try {
 			repository.save(sanitizer.isCorrect(countryToEdit));
+			
 		} catch (NoCountryNameException e) {
-			System.out.println("There is no CountryName");
+			return addingNewCountry(model, true, false);
+		} catch (DuplicateCountryException e) {
+			return addingNewCountry(model, false, true);
 		}
 		return "index";
 	}

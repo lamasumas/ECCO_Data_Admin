@@ -1,18 +1,27 @@
 package com.adminTool.ContollesAndObjects;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.adminTool.Database.Country;
+import com.adminTool.Database.CountryRepository;
+import com.adminTool.errors.DuplicateCountryException;
 import com.adminTool.errors.NoCountryNameException;
 
 @Component
 public class Sanitizer 
 {
+
+	@Autowired
+	private CountryRepository repository;
 	
-	public Country isCorrect(Country theCountry) throws NoCountryNameException
+	public Country isCorrect(Country theCountry) throws NoCountryNameException, DuplicateCountryException
 	{
 		if(theCountry.country.isEmpty())
 			throw new NoCountryNameException(true);
+		
+		if(repository.findByCountry(theCountry.country) != null)
+			throw new DuplicateCountryException(true);
 		
 		theCountry.setEelec( checkFloat(theCountry.eelec));
 		theCountry.setEfuel(checkFloat(theCountry.efuel));

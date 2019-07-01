@@ -10,6 +10,9 @@
 
 	<section>
 		<h1>Add a country:</h1>
+		
+		<h3  th:text="${duplicate.thereIsAnError} ? 'There is already this country' : ''"></h3>
+		<h3  th:text="${noName.thereIsAnError} ? 'You didn't write any country name' : ''"></h3>
 		<form action="#" th:action="@{/savingAddedChanges}" th:object="${countryToEdit}" method="post">
 			
 			Country: <input th:field="*{country}">
