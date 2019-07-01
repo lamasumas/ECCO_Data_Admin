@@ -7,6 +7,7 @@ public class Country {
 
 	  @Id
 	  public String id;
+	  
 	  public String  country;
 	  public String  eelec;
 	  public String  esaved_PV;
@@ -30,7 +31,7 @@ public class Country {
 	  
 	  public Country() { }
 	  
-	  public Country(String id,
+	  public Country(
 	   String  country,
 	   String  eelec,
 	   String  esaved_PV,
@@ -231,5 +232,7 @@ public class Country {
 		public void setEhouse(String ehouse) {
 			this.ehouse = ehouse;
 		}
+
+		
 	
 }

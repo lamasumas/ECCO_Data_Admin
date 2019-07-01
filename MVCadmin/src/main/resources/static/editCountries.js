@@ -4,6 +4,6 @@
 
 
 function selectorListener(){
-	var country = document.getElementById("countrySelector").value;
-	console.log(country);
+	var submitButton = document.getElementById("submitForm");
+	submitButton.disabled = false;
 }
