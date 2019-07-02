@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+body{
+	background-image: url("background_image.jpeg");
+}
 section{
 	background-color: lightgrey;
 	border: 1px solid black;
