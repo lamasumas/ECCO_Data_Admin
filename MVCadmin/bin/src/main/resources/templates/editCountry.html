@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Database Administration Tool</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+</head>
+<body>
+
+
+	<section>
+		<h1>Edit the country:</h1>
+		<form action="#" th:action="@{/savingEditedChanges}" th:object="${countryToEdit}" method="post">
+			id: <input readonly th:field="*{id}">
+			Country: <input readonly th:field="*{country}">
+			<br>
+			Eelec: <input th:field="*{eelec}" >
+			Esaved_PV: <input  th:field="*{esaved_PV}" >
+			<br>
+			Esaved_wind: <input  th:field="*{esaved_wind}" >
+			Esaved_hydro: <input  th:field="*{esaved_hydro}">
+			<br>
+			Eheat: <input th:field="*{eheat}" >
+			Efuel: <input  th:field="*{efuel}" >
+			Egas: <input  th:field="*{egas}" >
+			<br>
+			FCH4_CO2: <input  th:field="*{fCH4_CO2}">
+			FN20_CO2:<input  th:field="*{fN2O_CO2}">
+			<br>
+			Nvehicle_Dry: <input th:field="*{nvehicle_Dry}" >
+			Etransport_exhaust_Dry: <input th:field="*{etransport_exhaust_Dry}">
+			<br>
+			Nvehicle_Liquid: <input th:field="*{nvehicle_Liquid}">
+			Etransport_exhaust_Liquid: <input th:field="*{etransport_exhaust_Liquid}">
+			<br>
+			LHV_Demolitoion_Wood: <input  th:field="*{LHV_Demolitoion_Wood}">
+			LHV_Sawdust: <input   th:field="*{LHV_Sawdust}" >
+			LHV_Methane: <input  th:field="*{LHV_Methane}" >
+			<br>
+			Etree:<input  th:field="*{etree}">
+			Ehouse:<input  th:field="*{ehouse}">
+			<br>
+			<button type="submit">Save Changes</button>
+		</form>
+	</section>
+	
+</body>
+</html>

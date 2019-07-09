@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body{
+	background-image: url("background_image.jpeg");
+}
+section{
+	background-color: lightgrey;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding-bottom: 3%;
+	text-align: center;
+	overflow-x:auto;
+
+	
+}
+
+.mainMenuOption{
+	margin:1%; 
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 1%;
+}
+
+.mainMenuOption:hover{
+	background-color: firebrick;
+	
+}
+
+table, td, tr,th{
+	border: 1px solid black;
+	border-collapse: collapse;
+	
+}
+
+
+
