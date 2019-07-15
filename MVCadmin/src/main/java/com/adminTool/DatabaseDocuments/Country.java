@@ -1,4 +1,4 @@
-package com.adminTool.Database;
+package com.adminTool.DatabaseDocuments;
 
 
 import org.springframework.data.annotation.Id;

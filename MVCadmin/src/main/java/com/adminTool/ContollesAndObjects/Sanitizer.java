@@ -3,8 +3,8 @@ package com.adminTool.ContollesAndObjects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.adminTool.Database.Country;
-import com.adminTool.Database.CountryRepository;
+import com.adminTool.DatabaseDocuments.Country;
+import com.adminTool.DatabaseRepository.CountryRepository;
 import com.adminTool.errors.DuplicateCountryException;
 import com.adminTool.errors.NoCountryNameException;
 

@@ -14,6 +14,10 @@ section{
 	
 }
 
+nav{
+	margin-top: 2%;
+}
+
 .mainMenuOption{
 	margin:1%; 
 	border: 1px solid black;

@@ -9,13 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.tags.EditorAwareTag;
 
-import com.adminTool.Database.Country;
-import com.adminTool.Database.CountryRepository;
-import com.adminTool.Database.SimpleCountry;
+import com.adminTool.DatabaseDocuments.Country;
+import com.adminTool.DatabaseDocuments.QuestionsAdvance;
+import com.adminTool.DatabaseDocuments.QuestionsBeginner;
+import com.adminTool.DatabaseDocuments.SimpleCountry;
+import com.adminTool.DatabaseRepository.CountryRepository;
+import com.adminTool.DatabaseRepository.QuestionsAdvanceRepository;
+import com.adminTool.DatabaseRepository.QuestionsBeginnerRepository;
 import com.adminTool.errors.DuplicateCountryException;
 import com.adminTool.errors.NoCountryNameException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,13 +33,19 @@ public class GeneralController {
 	private Sanitizer sanitizer;
 	
 	@Autowired
-	private CountryRepository repository;
+	private CountryRepository countryRepository;
+	@Autowired
+	private QuestionsBeginnerRepository beginnersRepository;
+	
+	@Autowired
+	private QuestionsAdvanceRepository advanceRepository;
+	
 	@RequestMapping("/view")
 	public String setView(Model model)
 	{
 
 		ArrayList<Country> countries = new ArrayList<Country>();
-		repository.findAll().forEach((x) -> countries.add(x));
+		countryRepository.findAll().forEach((x) -> countries.add(x));
 		
 		model.addAttribute("countries", countries);
 		return "view";
@@ -44,7 +57,7 @@ public class GeneralController {
 
 		ArrayList<Country> countries = new ArrayList<Country>();
 		
-		repository.findAll().forEach((x) -> countries.add(x));
+		countryRepository.findAll().forEach((x) -> countries.add(x));
 		
 		model.addAttribute("selectedCountry", new SimpleCountry());
 		model.addAttribute("countries", countries);
@@ -57,7 +70,7 @@ public class GeneralController {
 
 	
 		
-		Country choosenCountry = repository.findByCountry(simpleCountry.getName());
+		Country choosenCountry = countryRepository.findByCountry(simpleCountry.getName());
 		
 		model.addAttribute("countryToEdit", choosenCountry);
 		return "editCountry";
@@ -69,7 +82,7 @@ public class GeneralController {
 	{
 		
 		
-		repository.save(sanitizer.isCorrectEdit(countryToEdit));
+		countryRepository.save(sanitizer.isCorrectEdit(countryToEdit));
 		return "index";
 	}
 
@@ -88,7 +101,7 @@ public class GeneralController {
 	{
 		
 		try {
-			repository.save(sanitizer.isCorrect(countryToEdit));
+			countryRepository.save(sanitizer.isCorrect(countryToEdit));
 			
 		} catch (NoCountryNameException e) {
 			return addingNewCountry(model, true, false);
@@ -103,7 +116,7 @@ public class GeneralController {
 	{
 	
 		ArrayList<Country> countries = new ArrayList<Country>();
-		repository.findAll().forEach((x) -> countries.add(x));
+		countryRepository.findAll().forEach((x) -> countries.add(x));
 		
 		model.addAttribute("countries", countries);
 		model.addAttribute("countryToRemove", new SimpleCountry());
@@ -113,8 +126,32 @@ public class GeneralController {
 	@RequestMapping("/removeCountry")
 	public String removeCountry(@ModelAttribute SimpleCountry countryName, Model model)
 	{
-		repository.delete(repository.findByCountry(countryName.name));
+		countryRepository.delete(countryRepository.findByCountry(countryName.name));
 		return "index";
+	}
+	
+	
+	@RequestMapping("/viewQuestionsBeginners")
+	public String viewQuestionsBeginners(Model model) {
+		
+		ArrayList<QuestionsBeginner> questionsFromMongo = new ArrayList<QuestionsBeginner>(StreamSupport.
+				stream(beginnersRepository.findAll().spliterator(),false).collect(Collectors.toList()));
+		ArrayList<QuestionBeginner> questionsToSend = new ArrayList<>();
+		
+		questionsFromMongo.forEach(questionMongo -> {
+			
+			ArrayList<Answer> answers = new ArrayList<Answer>(
+					Arrays.asList(questionMongo.getAnswers()).stream()
+					.map(theAnswerFormat -> theAnswerFormat.split("@") )
+					.map(theSplittedAnswer ->  new Answer(theSplittedAnswer[0], theSplittedAnswer[1], Integer.valueOf(theSplittedAnswer[2])))
+					.collect(Collectors.toList()));
+			questionsToSend.add(new QuestionBeginner(questionMongo.getQuestion(), answers));	
+			
+		});
+		
+		model.addAttribute("questions",questionsToSend);
+		
+		return "viewQuestionsBeginners";
 	}
 	
 	

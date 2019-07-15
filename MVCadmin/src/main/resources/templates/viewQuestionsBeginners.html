@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Administration Tool</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+</head>
+<body>
+	<section>
+		<table>
+			<tr th:each="question: ${questions}">
+			<td th:text="${question.getQuestionText()}"></td>
+			
+			 </tr>
+		</table>
+	</section>
+</body>
+</html>
