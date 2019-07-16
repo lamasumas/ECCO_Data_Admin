@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+</head>
+<body>
+	
+
+	<section>
+		<h1>Add a country:</h1>
+		
+		<h3  th:text="${noName.thereIsAnError} ? 'You need to write a country name' : ''"></h3>
+		<h3  th:text="${duplicate.thereIsAnError} ? 'There is already this country' : ''"></h3>
+		<form action="#" th:action="@{/savingAddedChanges}" th:object="${countryToEdit}" method="post">
+			
+			Country: <input th:field="*{country}">
+			<br>
+			Eelec: <input th:field="*{eelec}" >
+			Esaved_PV: <input  th:field="*{esaved_PV}" >
+			<br>
+			Esaved_wind: <input  th:field="*{esaved_wind}" >
+			Esaved_hydro: <input  th:field="*{esaved_hydro}">
+			<br>
+			Eheat: <input th:ffield="*{eheat}" >
+			Efuel: <input  th:field="*{efuel}" >
+			Egas: <input  th:field="*{egas}" >
+			<br>
+			FCH4_CO2: <input  th:field="*{fCH4_CO2}">
+			FN20_CO2:<input  th:field="*{fN2O_CO2}">
+			<br>
+			Nvehicle_Dry: <input th:field="*{nvehicle_Dry}" >
+			Etransport_exhaust_Dry: <input th:field="*{etransport_exhaust_Dry}">
+			<br>
+			Nvehicle_Liquid: <input th:field="*{nvehicle_Liquid}">
+			Etransport_exhaust_Liquid: <input th:field="*{etransport_exhaust_Liquid}">
+			<br>
+			LHV_Demolitoion_Wood: <input  th:field="*{LHV_Demolitoion_Wood}">
+			LHV_Sawdust: <input   th:field="*{LHV_Sawdust}" >
+			LHV_Methane: <input  th:field="*{LHV_Methane}" >
+			<br>
+			Etree:<input  th:field="*{etree}">
+			Ehouse:<input  th:field="*{ehouse}">
+			<br>
+			<button type="submit">Save Changes</button>
+		</form>
+	</section>
+
+
+</body>
+</html>

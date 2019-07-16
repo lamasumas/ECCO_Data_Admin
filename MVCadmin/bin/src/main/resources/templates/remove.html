@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script  src="editCountries.js" ></script>
+   	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+</head>
+<body>
+	<section>
+	<h1>Select a country:</h1>
+		<form action="#" th:action="@{/removeCountry}" th:object="${countryToRemove}" method="post">
+			<select  th:field="*{name}" onchange="selectorListener()">
+				<option selected disabled value="none">--Select an option--</option>
+				<option th:each="country: ${countries}" th:value="${country.country}" th:text="${country.country}"></option>
+			</select>
+			
+			<button disabled id="submitForm" type="submit">Remove</button>
+		</form>
+	</section>
+</body>
+</html>
