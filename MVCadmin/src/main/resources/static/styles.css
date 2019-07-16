@@ -2,6 +2,7 @@
 
 body{
 	background-image: url("background_image.jpeg");
+	text-align: center;
 }
 section{
 	background-color: lightgrey;
@@ -10,13 +11,21 @@ section{
 	padding-bottom: 3%;
 	text-align: center;
 	overflow-x:auto;
-
+	margin-bottom: 2%;
 	
 }
 
 nav{
 	margin-top: 2%;
 }
+
+table, td, tr,th{
+	margin:auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+	
+}
+
 
 .mainMenuOption{
 	margin:1%; 
@@ -30,11 +39,11 @@ nav{
 	
 }
 
-table, td, tr,th{
-	border: 1px solid black;
-	border-collapse: collapse;
-	
+.goBack{
+	background-color: lightgrey;
 }
+
+
 
 
 

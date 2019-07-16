@@ -7,12 +7,37 @@
 </head>
 <body>
 	<section>
+		<h1>Table view of the question for beginners</h1>
 		<table>
+			<tr>
+			<td>Question</td>
+			<td>Answer</td>
+			<td>Energy type </td>
+			<td>Points</td>
+			</tr>
 			<tr th:each="question: ${questions}">
 			<td th:text="${question.getQuestionText()}"></td>
-			
+			<td>
+				<span th:each="answer: ${question.getAnswerList()}">
+					<span th:text="${answer.getAnswerText()}"></span>
+					<br>
+				</span>
+			</td>
+			<td>
+				<span th:each="answer: ${question.getAnswerList()}">
+					<span th:text="${answer.getExtraInfo()}"></span>
+					<br>
+				</span>
+			</td>
+			<td>
+				<span th:each="answer: ${question.getAnswerList()}">
+					<span th:text="${answer.getPoints()}"></span>
+					<br>
+				</span>
+			</td>
 			 </tr>
 		</table>
 	</section>
+	<a class="mainMenuOption goBack" href="/"> Go Back</a>
 </body>
 </html>

@@ -154,6 +154,26 @@ public class GeneralController {
 		return "viewQuestionsBeginners";
 	}
 	
+	@RequestMapping("/deleteQuestionBeginnersIntro")
+	public String deleteQuestionBeginnerIntro(Model model) {
+		
+		ArrayList<QuestionsBeginner> questionsFromMongo = new ArrayList<QuestionsBeginner>(StreamSupport.
+				stream(beginnersRepository.findAll().spliterator(),false).collect(Collectors.toList()));
+	
+		
+		model.addAttribute("questions",questionsFromMongo);
+		model.addAttribute("selectedQuestion", new QuestionBeginner() );
+		
+		return "deleteQuestionBeginnersIntro";
+	}
+	
+	@RequestMapping("/deleteQuestionBeginners")
+	public String editQuestion(@ModelAttribute QuestionBeginner selectedQueston, Model model) 
+	{
+		QuestionsBeginner x = beginnersRepository.findByQuestion(selectedQueston.getQuestionText());
+		beginnersRepository.deleteById(x.getId());
+		return "/";
+	}
 	
 	
 	

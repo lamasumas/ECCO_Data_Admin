@@ -11,4 +11,5 @@ import com.adminTool.DatabaseDocuments.QuestionsBeginner;
 
 public interface QuestionsBeginnerRepository extends CrudRepository<QuestionsBeginner, String>{ 
 	
+	public QuestionsBeginner findByQuestion(String question);
 }
