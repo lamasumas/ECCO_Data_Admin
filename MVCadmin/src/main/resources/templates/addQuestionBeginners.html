@@ -1,0 +1,59 @@
+	
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Database Administration Tool</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+	<script  src="addQuestionBeginner.js" ></script>
+
+</head>
+<body>
+	<section>
+		<h1>Add a new question:</h1>
+		<form  action="#" th:action="@{/saveNewQuestion}" th:object="${newQuesiton}" method="post">
+			<b>Name:</b><input type="text"><br>
+			<b>How many answer: </b>
+			<select id="numberAnswer" onchange="setVisibleAnswerInputs()">
+				<option value="2" selected >2</option>
+				<option value="3" >3</option>
+				<option value="4" >4</option>
+				<option value="5" >5</option>
+			
+			</select>
+			<hr>
+			<span id="answers">
+				<span id="answer1">
+					<b>Answer 1:</b> <input id="answer1" type="text"> <b>Energy type:</b> 
+					<select id="energyType1">
+						<option value="Wind">Wind</option>
+						<option value="PV">PV</option>
+						<option value="Hydro">Hydro</option>
+						<option value="Manure">Manure</option>
+						<option value="Chips">Chips</option>
+						<option value="Sawdust">Sawdust</option>
+					</select> 
+					 <b>Points:</b> <input id="points1" type="number"><hr>
+				 </span>
+				 <span id="answer2">
+					 <b>Answer 2:</b> <input id="answer1" type="text"> <b>Energy type:</b> 
+					<select id="energyType1">
+						<option value="Wind">Wind</option>
+						<option value="PV">PV</option>
+						<option value="Hydro">Hydro</option>
+						<option value="Manure">Manure</option>
+						<option value="Chips">Chips</option>
+						<option value="Sawdust">Sawdust</option>
+					</select> 
+					 <b>Points:</b> <input id="points1" type="number"><hr>
+				</span>
+			</span>
+			
+
+		</form>
+	</section>
+	<a class="mainMenuOption goBack" href="/"> Go Back</a>
+	
+	
+</body>
+</html>

@@ -175,6 +175,13 @@ public class GeneralController {
 		return "/";
 	}
 	
+	@RequestMapping("/addQuestionBeginners")
+	public String addQuestionBeginners( Model model) 
+	{
+		model.addAttribute("newQuestion", new NewQuestionHolder());
+		return "addQuestionBeginners";
+	}
+	
 	
 	
 }
