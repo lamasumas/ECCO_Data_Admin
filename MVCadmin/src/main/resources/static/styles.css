@@ -26,6 +26,9 @@ table, td, tr,th{
 	
 }
 
+.error{
+	color: red;
+}
 
 .mainMenuOption{
 	margin:1%; 

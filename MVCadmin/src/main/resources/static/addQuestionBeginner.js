@@ -10,8 +10,8 @@ function setVisibleAnswerInputs(){
         var generalSpan = document.createElement("span");
         generalSpan.id = ("answer" +nextElement );
         var element = `
-        <b>Answer `+nextElement +`:</b> <input id="answer"`+ nextElement + ` type="text"> <b>Energy type:</b> 
-        <select id="energyType`+nextElement+`">
+        <b>Answer `+nextElement +`:</b> <input  name="answer`+ nextElement + `" type="text"> <b>Energy type:</b> 
+        <select  name="energyType`+nextElement+`">
             <option value="Wind">Wind</option>
             <option value="PV">PV</option>
             <option value="Hydro">Hydro</option>
@@ -19,7 +19,7 @@ function setVisibleAnswerInputs(){
             <option value="Chips">Chips</option>
             <option value="Sawdust">Sawdust</option>
         </select> 
-         <b>Points:</b> <input id="points`+nextElement+`" type="number"><hr>
+         <b>Points:</b> <input  name="points`+nextElement+`" type="number" value="0"><hr>
          `;
          generalSpan.innerHTML = element;
 
@@ -33,5 +33,6 @@ function setVisibleAnswerInputs(){
         setVisibleAnswerInputs();
     }
 
-
 }
+
+

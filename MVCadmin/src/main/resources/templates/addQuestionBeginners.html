@@ -11,8 +11,10 @@
 <body>
 	<section>
 		<h1>Add a new question:</h1>
-		<form  action="#" th:action="@{/saveNewQuestion}" th:object="${newQuesiton}" method="post">
-			<b>Name:</b><input type="text"><br>
+		<h3 class="error"  th:if="${questionError}">You didn't write any question or it's duplicate</h3>
+		<h3 class="error"   th:if="${answerError}">You didn't write an answer</h3>
+		<form id="newQuestionForm" action="#" th:action="@{/saveQuestionBeginner}" th:object="${questionToSave}" method="post">
+			<b>Question:</b><input th:field="*{question}" type="text"><br>
 			<b>How many answer: </b>
 			<select id="numberAnswer" onchange="setVisibleAnswerInputs()">
 				<option value="2" selected >2</option>
@@ -24,8 +26,8 @@
 			<hr>
 			<span id="answers">
 				<span id="answer1">
-					<b>Answer 1:</b> <input id="answer1" type="text"> <b>Energy type:</b> 
-					<select id="energyType1">
+					<b>Answer 1:</b> <input th:field="*{answer1}" type="text"> <b>Energy type:</b> 
+					<select  th:field="*{energyType1}" >
 						<option value="Wind">Wind</option>
 						<option value="PV">PV</option>
 						<option value="Hydro">Hydro</option>
@@ -33,11 +35,11 @@
 						<option value="Chips">Chips</option>
 						<option value="Sawdust">Sawdust</option>
 					</select> 
-					 <b>Points:</b> <input id="points1" type="number"><hr>
+					 <b>Points:</b> <input  th:field="*{points1}"  type="number"><hr>
 				 </span>
 				 <span id="answer2">
-					 <b>Answer 2:</b> <input id="answer1" type="text"> <b>Energy type:</b> 
-					<select id="energyType1">
+					 <b>Answer 2:</b> <input  th:field="*{answer2}"  type="text"> <b>Energy type:</b> 
+					<select  th:field="*{energyType2}" >
 						<option value="Wind">Wind</option>
 						<option value="PV">PV</option>
 						<option value="Hydro">Hydro</option>
@@ -45,12 +47,11 @@
 						<option value="Chips">Chips</option>
 						<option value="Sawdust">Sawdust</option>
 					</select> 
-					 <b>Points:</b> <input id="points1" type="number"><hr>
+					 <b>Points:</b> <input  th:field="*{points2}"  type="number"><hr>
 				</span>
 			</span>
-			
-
-		</form>
+			<button id="submitButton" type="submit">Save question</button>
+			</form>
 	</section>
 	<a class="mainMenuOption goBack" href="/"> Go Back</a>
 	

@@ -170,18 +170,47 @@ public class GeneralController {
 	@RequestMapping("/deleteQuestionBeginners")
 	public String editQuestion(@ModelAttribute QuestionBeginner selectedQueston, Model model) 
 	{
-		QuestionsBeginner x = beginnersRepository.findByQuestion(selectedQueston.getQuestionText());
+		QuestionsBeginner x = beginnersRepository.findFirstByQuestion(selectedQueston.getQuestionText());
 		beginnersRepository.deleteById(x.getId());
-		return "/";
+		return "index";
 	}
 	
 	@RequestMapping("/addQuestionBeginners")
-	public String addQuestionBeginners( Model model) 
+	public String addQuestionBeginners( Model model, boolean questionError, boolean answerError) 
 	{
 		model.addAttribute("newQuestion", new NewQuestionHolder());
+		model.addAttribute("questionToSave", new SavedBeginnerQuestion());
+		model.addAttribute("questionError", questionError);
+		model.addAttribute("answerError", answerError);
 		return "addQuestionBeginners";
 	}
-	
+	@RequestMapping("/saveQuestionBeginner")
+	public String saveQuestionBeginner(Model model, @ModelAttribute SavedBeginnerQuestion questionToSave)
+	{
+		ArrayList<String> possibleAnswers = new ArrayList<String>();
+		if(questionToSave.getQuestion().isEmpty() || beginnersRepository.findFirstByQuestion(questionToSave.getQuestion())!=null )
+		{
+			System.out.println("Problem");
+			return addQuestionBeginners(model, true, false);
+		}
+		for(int i= 1; i<=5; i++)
+		{
+			if(questionToSave.getAnswer(i) =="")
+				return addQuestionBeginners(model, false, true);
+			else if(questionToSave.getAnswer(i) == null)
+				break;
+			else
+			{
+			
+				possibleAnswers.add(questionToSave.getAnswer(i)+"@"+questionToSave.getEnergyType(i)+"@"+questionToSave.getPoints(i));
+			}
+			
+		}
+		 beginnersRepository.save( new QuestionsBeginner(questionToSave.getQuestion(), possibleAnswers.toArray(new String[possibleAnswers.size()])));
+		
+		
+		return "index";
+	}
 	
 	
 }
