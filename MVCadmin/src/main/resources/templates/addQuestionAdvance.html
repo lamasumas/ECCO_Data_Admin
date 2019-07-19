@@ -10,7 +10,8 @@
 	<section>
 		<h1>Add a new question:</h1>
 		<h3 class="error"  th:if="${questionError}">You didn't write any question or it's duplicate</h3>
-		<h3 class="error"   th:if="${answerError}">You didn't write an answer</h3>
+		<h3 class="error"   th:if="${positionError}">You didn't write the position of the question</h3>
+		<h3 class="error"   th:if="${nextStepError}">You didn't write what the user should do next</h3>
 		<form id="newQuestionForm" action="#" th:action="@{/saveQuestionAdvance}" th:object="${questionToSave}" method="post">
 			<b>Question:</b><input th:field="*{question}" type="text"><br>
 			<b>Position:</b><input th:field="*{position}" type="number" min="0"><br>
@@ -18,10 +19,10 @@
 			<hr>
 			<span id="answers">
 				<span id="answer1">
-					<b>Answer 1:</b> <input readonly th:field="*{answer1}" type="text" th:value="Yes">
+					<b>Answer 1:</b> <input readonly th:field="*{answer1}" type="text" >
 				</span>
 				 <span id="answer2">
-					 <b>Answer 2:</b> <input  th:field="*{answer2}"  type="text"><br>
+					 <b>Answer 2:</b> <input  readonly th:field="*{answer2}"  type="text"><br>
 					  <b>Next step:</b> <input  th:field="*{nextStep2}"  type="text">
 				</span>
 			</span>

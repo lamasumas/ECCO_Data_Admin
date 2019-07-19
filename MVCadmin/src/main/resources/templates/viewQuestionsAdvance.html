@@ -10,11 +10,13 @@
 		<h1>Table view of the question for Advance users</h1>
 		<table>
 			<tr>
-			<td>Question</td>
-			<td>Answers</td>
-			<td>Next Step</td>
+				<td>Position</td>
+				<td>Question</td>
+				<td>Answers</td>
+				<td>Next Step</td>
 			</tr>
 			<tr th:each="question: ${questions}">
+			<td th:text="${question.getPosition()}"></td>
 			<td th:text="${question.getQuestionText()}"></td>
 			<td>
 				<span th:each="answer: ${question.getAnswerList()}">

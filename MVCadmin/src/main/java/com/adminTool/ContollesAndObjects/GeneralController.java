@@ -18,6 +18,7 @@ import com.adminTool.DatabaseRepository.QuestionsAdvanceRepository;
 import com.adminTool.DatabaseRepository.QuestionsBeginnerRepository;
 import com.adminTool.errors.DuplicateCountryException;
 import com.adminTool.errors.NoCountryNameException;
+import com.fasterxml.jackson.databind.ser.impl.IteratorSerializer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,12 @@ public class GeneralController {
 	
 	@Autowired
 	private QuestionsAdvanceRepository advanceRepository;
+	
+	
+	@RequestMapping("/")
+	public String goHome() {
+		return "index";
+	}
 	
 	@RequestMapping("/view")
 	public String setView(Model model)
@@ -217,7 +224,7 @@ public class GeneralController {
 
 		ArrayList<QuestionsAdvance> questionsFromMongo = new ArrayList<QuestionsAdvance>(StreamSupport.
 				stream(advanceRepository.findAll().spliterator(),false).collect(Collectors.toList()));
-		ArrayList<QuestionBeginner> questionsToSend = new ArrayList<>();
+		ArrayList<QuestionAdvance> questionsToSend = new ArrayList<>();
 		
 		questionsFromMongo.forEach(questionMongo -> {
 			
@@ -226,7 +233,7 @@ public class GeneralController {
 					.map(theAnswerFormat -> theAnswerFormat.split("@") )
 					.map(theSplittedAnswer -> (theSplittedAnswer.length >1)?  new Answer(theSplittedAnswer[0], theSplittedAnswer[1], 0): new Answer(theSplittedAnswer[0], "(Load next question)", 0))
 					.collect(Collectors.toList()));
-			questionsToSend.add(new QuestionBeginner(questionMongo.getQuestion(), answers));	
+			questionsToSend.add(new QuestionAdvance(questionMongo.getQuestion(), answers, questionMongo.getPosition()));	
 			
 		});
 		
@@ -252,16 +259,21 @@ public class GeneralController {
 	public String saveDeltedQuestionAdvance(@ModelAttribute QuestionAdvance selectedQueston, Model model) 
 	{
 		QuestionsAdvance x = advanceRepository.findFirstByQuestion(selectedQueston.getQuestionText());
-		beginnersRepository.deleteById(x.getId());
+		advanceRepository.deleteById(x.getId());
 		return "index";
 	}
 	
 	@RequestMapping("/addQuestionAdvance")
-	public String addQuestionAdvance( Model model, boolean questionError, boolean answerError) 
+	public String addQuestionAdvance( Model model, boolean questionError, boolean nextStepError, boolean positionError) 
 	{
-		model.addAttribute("questionToSave", new SavedAdvanceQuestion());
+		SavedAdvanceQuestion temp = new SavedAdvanceQuestion();
+		temp.setAnswer1("Yes");
+		temp.setAnswer2("No");
+		temp.setNextStep1("");
+		model.addAttribute("questionToSave", temp);
 		model.addAttribute("questionError", questionError);
-		model.addAttribute("answerError", answerError);
+		model.addAttribute("nextStepError", nextStepError);
+		model.addAttribute("positionError", positionError);
 		
 		return "addQuestionAdvance";
 	}
@@ -273,23 +285,41 @@ public class GeneralController {
 		if(questionToSave.getQuestion().isEmpty() || advanceRepository.findFirstByQuestion(questionToSave.getQuestion())!=null )
 		{
 			System.out.println("Problem");
-			return addQuestionAdvance(model, true, false);
+			return addQuestionAdvance(model, true, false, false);
 		}
-		for(int i= 1; i<=2; i++)
+		if(questionToSave.getPosition().isEmpty())
 		{
-			if(questionToSave.getAnswer2() =="")
-				return addQuestionBeginners(model, false, true);
-			else
-			{
-			
-				possibleAnswers.add(questionToSave.getAnswer(i)+"@"+questionToSave.getNextStep(i)+"@");
-			}
-			
+			System.out.println("Problem");
+			return addQuestionAdvance(model, false, false, true);
+		} 
+		if(questionToSave.getNextStep(2).isEmpty())
+		{
+			System.out.println("Problem");
+			return addQuestionAdvance(model, false, true, false);
+		}
+		
+		
+		
+		for(int i= 1; i<=2; i++)
+		{	
+				possibleAnswers.add(questionToSave.getAnswer(i)+"@"+questionToSave.getNextStep(i)+"@");			
 		}
 		 QuestionsAdvance preparedQuestion= new QuestionsAdvance(questionToSave.getQuestion(), possibleAnswers.toArray(new String[possibleAnswers.size()]), Integer.valueOf(questionToSave.getPosition()));
-		 if(advanceRepository.findFirstByPosition(String.valueOf(preparedQuestion.getPosition())) )
+		 if(advanceRepository.findFirstByPosition(preparedQuestion.getPosition()) != null) 
+		 {
+			 for(int i = (int) advanceRepository.count(); i>=  preparedQuestion.getPosition(); i-- )
+			 {
+				 QuestionsAdvance documentToUpdate = advanceRepository.findFirstByPosition(i);
+				 if(documentToUpdate != null)
+				 {
+					 documentToUpdate.setPosition(documentToUpdate.getPosition()+1);
+					 advanceRepository.save(documentToUpdate);
+				 }
+			 }
+			 
+		 }
 		 
-		 advanceRepository.save( );
+		 advanceRepository.save(preparedQuestion );
 		
 		
 		return "index";
