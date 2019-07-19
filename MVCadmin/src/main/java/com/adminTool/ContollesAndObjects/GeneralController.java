@@ -178,7 +178,6 @@ public class GeneralController {
 	@RequestMapping("/addQuestionBeginners")
 	public String addQuestionBeginners( Model model, boolean questionError, boolean answerError) 
 	{
-		model.addAttribute("newQuestion", new NewQuestionHolder());
 		model.addAttribute("questionToSave", new SavedBeginnerQuestion());
 		model.addAttribute("questionError", questionError);
 		model.addAttribute("answerError", answerError);
@@ -211,6 +210,92 @@ public class GeneralController {
 		
 		return "index";
 	}
+	
+	@RequestMapping("/viewQuestionsAdvance")
+	public String viewQuestionsAdvance(Model model)
+	{
+
+		ArrayList<QuestionsAdvance> questionsFromMongo = new ArrayList<QuestionsAdvance>(StreamSupport.
+				stream(advanceRepository.findAll().spliterator(),false).collect(Collectors.toList()));
+		ArrayList<QuestionBeginner> questionsToSend = new ArrayList<>();
+		
+		questionsFromMongo.forEach(questionMongo -> {
+			
+			ArrayList<Answer> answers = new ArrayList<Answer>(
+					Arrays.asList(questionMongo.getAnswer()).stream()
+					.map(theAnswerFormat -> theAnswerFormat.split("@") )
+					.map(theSplittedAnswer -> (theSplittedAnswer.length >1)?  new Answer(theSplittedAnswer[0], theSplittedAnswer[1], 0): new Answer(theSplittedAnswer[0], "(Load next question)", 0))
+					.collect(Collectors.toList()));
+			questionsToSend.add(new QuestionBeginner(questionMongo.getQuestion(), answers));	
+			
+		});
+		
+		model.addAttribute("questions",questionsToSend);
+		return "viewQuestionsAdvance";
+	}
+	
+	@RequestMapping("/deleteQuestionAdvance")
+	public String deleteQuestionAdvance(Model model)
+	{
+
+		ArrayList<QuestionsAdvance> questionsFromMongo = new ArrayList<QuestionsAdvance>(StreamSupport.
+				stream(advanceRepository.findAll().spliterator(),false).collect(Collectors.toList()));
+	
+		
+		model.addAttribute("questions",questionsFromMongo);
+		model.addAttribute("selectedQuestion", new QuestionAdvance() );
+		
+		return "deleteQuestionAdvance";
+	}
+	
+	@RequestMapping("/saveDeleteQuestionAdvance")
+	public String saveDeltedQuestionAdvance(@ModelAttribute QuestionAdvance selectedQueston, Model model) 
+	{
+		QuestionsAdvance x = advanceRepository.findFirstByQuestion(selectedQueston.getQuestionText());
+		beginnersRepository.deleteById(x.getId());
+		return "index";
+	}
+	
+	@RequestMapping("/addQuestionAdvance")
+	public String addQuestionAdvance( Model model, boolean questionError, boolean answerError) 
+	{
+		model.addAttribute("questionToSave", new SavedAdvanceQuestion());
+		model.addAttribute("questionError", questionError);
+		model.addAttribute("answerError", answerError);
+		
+		return "addQuestionAdvance";
+	}
+	
+	@RequestMapping("/saveQuestionAdvance")
+	public String saveQuestionAdvance(Model model, @ModelAttribute SavedAdvanceQuestion questionToSave)
+	{
+		ArrayList<String> possibleAnswers = new ArrayList<String>();
+		if(questionToSave.getQuestion().isEmpty() || advanceRepository.findFirstByQuestion(questionToSave.getQuestion())!=null )
+		{
+			System.out.println("Problem");
+			return addQuestionAdvance(model, true, false);
+		}
+		for(int i= 1; i<=2; i++)
+		{
+			if(questionToSave.getAnswer2() =="")
+				return addQuestionBeginners(model, false, true);
+			else
+			{
+			
+				possibleAnswers.add(questionToSave.getAnswer(i)+"@"+questionToSave.getNextStep(i)+"@");
+			}
+			
+		}
+		 QuestionsAdvance preparedQuestion= new QuestionsAdvance(questionToSave.getQuestion(), possibleAnswers.toArray(new String[possibleAnswers.size()]), Integer.valueOf(questionToSave.getPosition()));
+		 if(advanceRepository.findFirstByPosition(String.valueOf(preparedQuestion.getPosition())) )
+		 
+		 advanceRepository.save( );
+		
+		
+		return "index";
+	}
+	
+	
 	
 	
 }

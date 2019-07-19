@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Database Administration Tool</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+</head>
+<body>
+<section>
+		<h1>Table view of the question for Advance users</h1>
+		<table>
+			<tr>
+			<td>Question</td>
+			<td>Answers</td>
+			<td>Next Step</td>
+			</tr>
+			<tr th:each="question: ${questions}">
+			<td th:text="${question.getQuestionText()}"></td>
+			<td>
+				<span th:each="answer: ${question.getAnswerList()}">
+					<span th:text="${answer.getAnswerText()}"></span>
+					<br>
+				</span>
+			</td>
+			<td>
+				<span th:each="answer: ${question.getAnswerList()}">
+					<span th:text="${answer.getExtraInfo()}"></span>
+					<br>
+				</span>
+			</td>
+			</tr>
+		</table>
+	</section>
+	<a class="mainMenuOption goBack" href="/"> Go Back</a>
+</body>
+</body>
+</html>

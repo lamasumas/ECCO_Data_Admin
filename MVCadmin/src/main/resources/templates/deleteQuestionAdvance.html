@@ -1,0 +1,26 @@
+	
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Database Administration Tool</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+	<script  src="editCountries.js" ></script>
+</head>
+<body>
+	<section>
+	<h1>Select the question to edit:</h1>
+		<form action="#" th:action="@{/saveDeleteQuestionAdvance}" th:object="${selectedQuestion}" method="post">
+			<select th:field="*{questionText}" onchange="selectorListener()">
+				<option selected disabled value="none">--Select an option--</option>
+				<option th:each="question: ${questions}" th:value="${question.getQuestion()}" th:text="${question.getQuestion()}"></option>
+			</select>
+			
+			<button disabled id="submitForm" type="submit">Delete question</button>
+		</form>
+	</section>
+	<a class="mainMenuOption goBack" href="/"> Go Back</a>
+	
+	
+</body>
+</html>

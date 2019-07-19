@@ -14,6 +14,11 @@ public QuestionAdvance(String questionText, ArrayList<Answer> answerList, int po
 }
 
 
+public QuestionAdvance() {
+	// TODO Auto-generated constructor stub
+}
+
+
 public int getPosition() {
 		return position;
 	}

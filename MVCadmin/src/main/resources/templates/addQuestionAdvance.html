@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Database Administration Tool</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+
+</head>
+<body>
+	<section>
+		<h1>Add a new question:</h1>
+		<h3 class="error"  th:if="${questionError}">You didn't write any question or it's duplicate</h3>
+		<h3 class="error"   th:if="${answerError}">You didn't write an answer</h3>
+		<form id="newQuestionForm" action="#" th:action="@{/saveQuestionAdvance}" th:object="${questionToSave}" method="post">
+			<b>Question:</b><input th:field="*{question}" type="text"><br>
+			<b>Position:</b><input th:field="*{position}" type="number" min="0"><br>
+			</select>
+			<hr>
+			<span id="answers">
+				<span id="answer1">
+					<b>Answer 1:</b> <input readonly th:field="*{answer1}" type="text" th:value="Yes">
+				</span>
+				 <span id="answer2">
+					 <b>Answer 2:</b> <input  th:field="*{answer2}"  type="text"><br>
+					  <b>Next step:</b> <input  th:field="*{nextStep2}"  type="text">
+				</span>
+			</span>
+			<button id="submitButton" type="submit">Save question</button>
+			</form>
+	</section>
+	<a class="mainMenuOption goBack" href="/"> Go Back</a>
+	
+	
+</body>
+</html>
