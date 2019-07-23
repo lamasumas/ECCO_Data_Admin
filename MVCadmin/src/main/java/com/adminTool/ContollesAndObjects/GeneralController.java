@@ -33,20 +33,40 @@ public class GeneralController {
 	@Autowired
 	private Sanitizer sanitizer;
 	
+	/**
+	 * Mongodb manager for the country collection
+	 */
 	@Autowired
 	private CountryRepository countryRepository;
+	
+	/**
+	 * Mongodb manager for the beginner question collection
+	 */
 	@Autowired
 	private QuestionsBeginnerRepository beginnersRepository;
 	
+	/**
+	 * Mongodb manager for the advance question collection
+	 */
 	@Autowired
 	private QuestionsAdvanceRepository advanceRepository;
 	
-	
+	/**
+	 * Mapping for going to the index page
+	 * @return the page to go
+	 */
 	@RequestMapping("/")
 	public String goHome() {
 		return "index";
 	}
 	
+	/**
+	 * Mapping for going to the view countries page.
+	 * Internally, the method download all the countries from the database
+	 * an it stores it in an arraylist that is pass to the html
+	 * @param model
+	 * @return the page to go
+	 */
 	@RequestMapping("/view")
 	public String setView(Model model)
 	{
@@ -58,6 +78,12 @@ public class GeneralController {
 		return "view";
 	}
 	
+	/**
+	 * Mapping for the edit country intro page
+	 * Internally it does more or less the same that the setView method
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/editIntro")
 	public String setEditIntro(Model model)
 	{
@@ -71,6 +97,13 @@ public class GeneralController {
 		return "editIntro";
 	}
 
+	/**
+	 * This is the mapping fot the actual editing page of the tool
+	 * it simply pass the country to edit to the next page
+	 * @param simpleCountry, selected country of the previous page
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/editCountry")
 	public String setEditCountryForm(@ModelAttribute SimpleCountry simpleCountry, Model model)
 	{
@@ -83,7 +116,14 @@ public class GeneralController {
 		return "editCountry";
 	}
 	
-	
+	/**
+	 * This mapping is called after the edition of the country data.
+	 * It is used to store the country changes, after checking that all
+	 * the new data is correct
+	 * @param countryToEdit, the country to save
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/savingEditedChanges")
 	public String saveEditedChanges(@ModelAttribute Country countryToEdit, Model model)
 	{
@@ -93,6 +133,13 @@ public class GeneralController {
 		return "index";
 	}
 
+	/**
+	 * This is the mapping used to load the adding country page
+	 * @param model
+	 * @param noCountryName, boolean used to show the error of a country withou a name
+	 * @param duplicateCountry, boolean used to show the error of a duplicate country
+	 * @return the next page to load
+	 */
 	@RequestMapping("/add")
 	public String addingNewCountry( Model model, boolean noCountryName, boolean duplicateCountry)
 	{
@@ -103,6 +150,13 @@ public class GeneralController {
 		return "add";
 	}
 	
+	/**
+	 * This is the mapping used to save the new country after is checked
+	 * that is correctly added the info
+	 * @param countryToEdit, the new country
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/savingAddedChanges")
 	public String savingNewCountry(@ModelAttribute Country countryToEdit, Model model)
 	{
@@ -117,7 +171,12 @@ public class GeneralController {
 		}
 		return "index";
 	}
-		
+	
+	/**
+	 * Mapping for removing a country from the database
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/remove")
 	public String remove(Model model)
 	{
@@ -130,6 +189,12 @@ public class GeneralController {
 		return "remove";
 	}
 	
+	/**
+	 * Saving the action of the remove
+	 * @param countryName, the country name of the country to remove
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/removeCountry")
 	public String removeCountry(@ModelAttribute SimpleCountry countryName, Model model)
 	{
@@ -137,7 +202,12 @@ public class GeneralController {
 		return "index";
 	}
 	
-	
+	/**
+	 * Mapping for view the beginners questions.
+	 * It search it the database in a functional way
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/viewQuestionsBeginners")
 	public String viewQuestionsBeginners(Model model) {
 		
@@ -161,6 +231,11 @@ public class GeneralController {
 		return "viewQuestionsBeginners";
 	}
 	
+	/**
+	 * Mapping for the removing a question 
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/deleteQuestionBeginnersIntro")
 	public String deleteQuestionBeginnerIntro(Model model) {
 		
@@ -173,7 +248,12 @@ public class GeneralController {
 		
 		return "deleteQuestionBeginnersIntro";
 	}
-	
+	/**
+	 * Mapping used to actually delete the selected beginner question 
+	 * @param selectedQueston, the question to delete
+	 * @param model
+	 * @return the next page to load 
+	 */
 	@RequestMapping("/deleteQuestionBeginners")
 	public String editQuestion(@ModelAttribute QuestionBeginner selectedQueston, Model model) 
 	{
@@ -181,7 +261,13 @@ public class GeneralController {
 		beginnersRepository.deleteById(x.getId());
 		return "index";
 	}
-	
+	/**
+	 * Mapping for adding a new question
+	 * @param model
+	 * @param questionError, boolean that appear when there is a problem in the actual question
+	 * @param answerError, boolean that appear when there is a problem with the answer
+	 * @return the next page to load
+	 */
 	@RequestMapping("/addQuestionBeginners")
 	public String addQuestionBeginners( Model model, boolean questionError, boolean answerError) 
 	{
@@ -190,6 +276,14 @@ public class GeneralController {
 		model.addAttribute("answerError", answerError);
 		return "addQuestionBeginners";
 	}
+	
+	
+	/**
+	 * This the mapping of the actual adding of the beginner question  
+	 * @param model
+	 * @param questionToSave, question that is going to be added to the database
+	 * @return the next page to load
+	 */
 	@RequestMapping("/saveQuestionBeginner")
 	public String saveQuestionBeginner(Model model, @ModelAttribute SavedBeginnerQuestion questionToSave)
 	{
@@ -218,6 +312,11 @@ public class GeneralController {
 		return "index";
 	}
 	
+	/**
+	 * Mapping for the page of showing the advance question to the admin
+	 * @param model
+	 * @return the page to load
+	 */
 	@RequestMapping("/viewQuestionsAdvance")
 	public String viewQuestionsAdvance(Model model)
 	{
@@ -241,6 +340,11 @@ public class GeneralController {
 		return "viewQuestionsAdvance";
 	}
 	
+	/**
+	 * Mapping for deleting an advance question 
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/deleteQuestionAdvance")
 	public String deleteQuestionAdvance(Model model)
 	{
@@ -255,6 +359,12 @@ public class GeneralController {
 		return "deleteQuestionAdvance";
 	}
 	
+	/**
+	 * The actual action of saving the deleted quesiton in the database
+	 * @param selectedQueston, question to delted
+	 * @param model
+	 * @return the next page to load
+	 */
 	@RequestMapping("/saveDeleteQuestionAdvance")
 	public String saveDeltedQuestionAdvance(@ModelAttribute QuestionAdvance selectedQueston, Model model) 
 	{
@@ -263,6 +373,14 @@ public class GeneralController {
 		return "index";
 	}
 	
+	/**
+	 * Mapping for adding the an advance quesiton
+	 * @param model
+	 * @param questionError, boolean for showing an actual quesiton error
+	 * @param nextStepError, boolean for showing that there is no next step added
+	 * @param positionError, boolean for showing that there is no position added
+	 * @return the next page to load
+	 */
 	@RequestMapping("/addQuestionAdvance")
 	public String addQuestionAdvance( Model model, boolean questionError, boolean nextStepError, boolean positionError) 
 	{
@@ -277,7 +395,12 @@ public class GeneralController {
 		
 		return "addQuestionAdvance";
 	}
-	
+	/**
+	 * Mapping for the actual action of saving the advance quesiton
+	 * @param model
+	 * @param questionToSave, the question to save
+	 * @return the next page to load
+	 */
 	@RequestMapping("/saveQuestionAdvance")
 	public String saveQuestionAdvance(Model model, @ModelAttribute SavedAdvanceQuestion questionToSave)
 	{
