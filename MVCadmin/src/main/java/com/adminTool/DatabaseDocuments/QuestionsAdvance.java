@@ -2,7 +2,12 @@ package com.adminTool.DatabaseDocuments;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Document representation needed for accesing the advance question collection of the database
+ *
+ */
 @Document
 public class QuestionsAdvance 
 {

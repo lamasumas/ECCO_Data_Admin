@@ -1,5 +1,13 @@
 package com.adminTool.ContollesAndObjects;
 
+
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * A class made with the purpose of holding the advance question 
+ * before adding it to the database 
+ *
+ */
 public class SavedAdvanceQuestion {
 	private String question;
 	private String answer1;
@@ -50,6 +58,11 @@ public class SavedAdvanceQuestion {
 		this.position = position;
 	}
 
+	/**
+	 * Selector for the answers
+	 * @param number, int of the answer
+	 * @return String the answer
+	 */
 	public String getAnswer(int number) {
 		switch(number)
 		{
@@ -59,6 +72,11 @@ public class SavedAdvanceQuestion {
 		return "error";
 	}
 	
+	/**
+	 * Selector for the next step
+	 * @param number, int of the next step
+	 * @return String with the next step
+	 */
 	public String getNextStep(int number) {
 		switch(number)
 		{

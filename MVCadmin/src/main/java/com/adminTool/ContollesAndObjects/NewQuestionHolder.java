@@ -1,5 +1,12 @@
 package com.adminTool.ContollesAndObjects;
 
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Class made in order to be able to hold the new questions that 
+ * are going to be added to the databse
+ *
+ */
 public class NewQuestionHolder 
 {
 	private String question;

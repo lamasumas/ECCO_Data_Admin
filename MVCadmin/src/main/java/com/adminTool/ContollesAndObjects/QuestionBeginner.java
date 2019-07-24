@@ -2,6 +2,12 @@ package com.adminTool.ContollesAndObjects;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Class made for holding and managing the beginners questions
+ *
+ */
 public class QuestionBeginner 
 {
 	private String questionText;

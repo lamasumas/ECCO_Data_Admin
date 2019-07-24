@@ -26,7 +26,12 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Class that acts as the controller of the mvc project
+ *
+ */
 @Controller
 public class GeneralController {
 	

@@ -4,6 +4,12 @@ package com.adminTool.DatabaseDocuments;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Document class for accesing the Country collection of the database
+ *
+ */
 @Document
 public class Country {
 

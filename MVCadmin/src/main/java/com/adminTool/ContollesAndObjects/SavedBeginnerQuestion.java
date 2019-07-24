@@ -1,5 +1,14 @@
 package com.adminTool.ContollesAndObjects;
 
+
+
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * A class made with the purpose of holding the beginners question 
+ * before adding it to the database 
+ *
+ */
 public class SavedBeginnerQuestion
 {
 	private String question;
@@ -122,6 +131,12 @@ public class SavedBeginnerQuestion
 		this.energyType5 = energyType5;
 	}
 	
+
+	/**
+	 * Selector for the answers
+	 * @param number, int of the answer
+	 * @return String the answer
+	 */
 	public String getAnswer(int number) {
 		switch(number)
 		{
@@ -133,7 +148,12 @@ public class SavedBeginnerQuestion
 		}
 		return "error";
 	}
-	
+
+	/**
+	 * Selector for the points for an answer
+	 * @param number, int of the points for an answer
+	 * @return String the points
+	 */
 	public int getPoints(int number)
 	{
 		switch(number) 
@@ -147,7 +167,12 @@ public class SavedBeginnerQuestion
 		return -1;
 		
 	}
-	
+
+	/**
+	 * Selector for the energy type of an answer
+	 * @param number, int of the energy type of the answer
+	 * @return String with the energy type
+	 */
 	public String getEnergyType(int number) {
 		switch(number)
 		{

@@ -7,7 +7,12 @@ import com.adminTool.DatabaseDocuments.Country;
 import com.adminTool.DatabaseRepository.CountryRepository;
 import com.adminTool.errors.DuplicateCountryException;
 import com.adminTool.errors.NoCountryNameException;
-
+/**
+ * 
+ * @author Eduardo Lamas Suárez	
+ * Class made for sanitazing the data when adding or editing a country
+ *
+ */
 @Component
 public class Sanitizer 
 {
@@ -15,6 +20,14 @@ public class Sanitizer
 	@Autowired
 	private CountryRepository repository;
 	
+	
+	/**
+	 * Checks if a country has the correct data in it for add it to the database
+	 * @param theCountry, Country to check
+	 * @return Country checked
+	 * @throws NoCountryNameException, Error if there is no name in the country
+	 * @throws DuplicateCountryException, Error if there is already that country in the database
+	 */
 	public Country isCorrect(Country theCountry) throws NoCountryNameException, DuplicateCountryException
 	{
 		if(theCountry.country.isEmpty())
@@ -47,6 +60,11 @@ public class Sanitizer
 	}
 	
 
+	/**
+	 * Checks if the data of a country that is being edited is correct
+	 * @param theCountry, Country to check
+	 * @return Country checked
+	 */
 	public Country isCorrectEdit(Country theCountry)
 	{		
 		theCountry.setEelec( checkFloat(theCountry.eelec));
@@ -72,6 +90,11 @@ public class Sanitizer
 			
 	}
 
+	/**
+	 * Checks if a string is a float
+	 * @param attribute, String containing the float number
+	 * @return String with the number
+	 */
 	private String checkFloat(String attribute) {
 		try {
 			Float.parseFloat(attribute);

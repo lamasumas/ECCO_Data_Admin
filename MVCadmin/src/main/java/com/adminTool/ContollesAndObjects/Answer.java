@@ -1,5 +1,12 @@
 package com.adminTool.ContollesAndObjects;
 
+/**
+ * 
+ * @author Eduardo Lamas Suarez
+ * A class made in order to be able to manage better the answer
+ * of the diferent question types
+ *
+ */
 public class Answer 
 {
 	String answerText;
@@ -35,10 +42,18 @@ public class Answer
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	
+	/**
+	 * A method that creates the code for the beginners answer for the mongodb
+	 * @return String with the code
+	 */
 	public String getRadioButtonBeginnerCode() {
 		return extraInfo + "@" + points;
 	}
+	
+	/**
+	 * A method that creates the code for the advance answers
+	 * @return String the code
+	 */
 	public String getRadioButtonAdvanceCode() {
 		return extraInfo ;
 	}

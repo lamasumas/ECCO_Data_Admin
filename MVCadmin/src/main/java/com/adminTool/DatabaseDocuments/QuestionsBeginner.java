@@ -3,6 +3,13 @@ package com.adminTool.DatabaseDocuments;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Document representation needed for being able to access to the beginner question collection of the database
+ *
+ */
 @Document
 public class QuestionsBeginner {
 		

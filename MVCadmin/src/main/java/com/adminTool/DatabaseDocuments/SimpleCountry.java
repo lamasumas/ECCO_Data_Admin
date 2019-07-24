@@ -1,5 +1,10 @@
 package com.adminTool.DatabaseDocuments;
 
+/**
+ * 
+ * @author Eduardo Lamas Suárez
+ * Document representation needed for accessing the country collection of the database
+ */
 public class SimpleCountry 
 {
 	public String name;
