@@ -37,3 +37,11 @@ The team who is developing the actual ECCO One Stop Shop is made by:
   <li>Chi-Thang Phan-Tan</li>
   <li>Daniel Ashcroft</i>
 </ul
+
+<h3>References</h3>
+<nav>
+  <ul>
+   <li><a href="http://www.nweurope.eu/projects/project-search/ecco-creating-new-local-energy-community-co-operatives/">ECCO project webpage</a>  </li>
+    <li><a href="https://www.cit.ie/">CIT webpage</a></li>
+  </ul>
+</nav>
